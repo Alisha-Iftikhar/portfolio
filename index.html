@@ -1,280 +1,686 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alisha Iftikhar - Frontend Developer</title>
-  <link rel="stylesheet" href="src/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alisha Iftikhar | Frontend Developer</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'inter': ['Inter', 'sans-serif'],
+            'poppins': ['Poppins', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'fadeIn': 'fadeIn 0.8s ease-out forwards',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            },
+            fadeIn: {
+              'from': { opacity: '0', transform: 'translateY(20px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-.animate-float {
-  animation: float 4s ease-in-out infinite;
-}
-    .clip-path-hexagon {
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #6366f1, #10b981);
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6366f1;
+    }
+
+    /* Gradient Text */
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Animation for gradient text */
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .gradient-text-animated {
+      background: linear-gradient(135deg, #6366f1, #10b981, #f59e0b);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    /* Hexagon Shape */
+    .hexagon {
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      background: linear-gradient(135deg, #6366f1, #10b981);
+    }
+
+    .hexagon img {
       clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     }
 
-    .nav-link {
-      position: relative;
-      padding: 8px 0;
-      transition: all 0.3s ease;
-    }
-    .nav-link::after {
+    /* Navigation Link Active State */
+    .nav-link.active::after {
       content: '';
       position: absolute;
-      bottom: 0;
+      bottom: -5px;
       left: 0;
-      width: 0;
-      height: 3px;
-      background: linear-gradient(to right, #00ff95, #00e5ff, #c400ff);
-      transition: 0.3s ease;
-    }
-    .nav-link:hover::after {
       width: 100%;
+      height: 2px;
+      background: linear-gradient(135deg, #6366f1, #10b981);
+      border-radius: 2px;
     }
 
-    .menu-open {
-      max-height: 500px;
+    /* Back to Top Button */
+    .back-to-top {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .back-to-top.visible {
       opacity: 1;
       transform: translateY(0);
-    }
-    .menu-closed {
-      max-height: 0;
-      opacity: 0;
-      transform: translateY(-10px);
+      pointer-events: auto;
     }
 
-    .animate-fadeIn { 
-      animation: fadeIn 1.2s ease forwards;
+    /* Skill Progress Animation */
+    .skill-progress {
+      transition: width 1.5s ease !important;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .animate-fadeOut{ animation: fadeOut 4s ease forwards; }
-    @keyframes fadeOut { 0% {width: 0;} 100% {width: 95%;} }
-
-    .animate-fadeOut2{ animation: fadeOut2 4s ease forwards; }
-    @keyframes fadeOut2 { 0% {width: 0;} 100% {width: 90%;} }
-
-    .animate-fadeOut3{ animation: fadeOut3 4s ease forwards; }
-    @keyframes fadeOut3 { 0% {width: 0;} 100% {width: 85%;} }
   </style>
 </head>
-<body class="bg-gradient-to-br from-[#0a0a0f] via-[#0f111a] to-[#1a1033] text-slate-100 font-sans">
 
-<!-- Floating Social -->
-<div class="fixed flex flex-col gap-2 bottom-5 right-6">
-  <!-- <a href="#" class=""> -->
-<img src="linkedin.png" alt="logo" class="h-10 w-10">
-<img src="github.png" alt="logo" class="h-10 w-10">
-  <!-- </a> -->
-</div>
+<body class="font-inter bg-[#0f172a] text-[#f8fafc]">
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 w-full bg-[#0f172a]/95 backdrop-blur-md z-50 py-5 border-b border-white/5">
+    <div class="max-w-[1200px] mx-auto px-5">
+      <div class="flex justify-between items-center">
+        <a href="/index.html" class="text-2xl font-extrabold font-poppins text-white">
+          Alisha <span class="gradient-text">Iftikhar</span>
+        </a>
+        <div class="hidden md:flex gap-8 items-center">
+          <a href="#home"
+            class="nav-link relative text-[#cbd5e1] hover:text-white font-medium transition-colors duration-300 active">Home</a>
+          <a href="#about"
+            class="nav-link relative text-[#cbd5e1] hover:text-white font-medium transition-colors duration-300">About</a>
+          <a href="#skills"
+            class="nav-link relative text-[#cbd5e1] hover:text-white font-medium transition-colors duration-300">Skills</a>
+          <a href="#projects"
+            class="nav-link relative text-[#cbd5e1] hover:text-white font-medium transition-colors duration-300">Projects</a>
+        </div>
 
-<!-- Navbar -->
-<header class="bg-slate-950 sticky top-0 z-50 shadow">
-  <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
-    <a href="index.html">
-      <h1 class="text-2xl font-extrabold bg-gradient-to-r from-[#00ff95] via-[#00e5ff] to-[#c400ff] bg-clip-text text-transparent">
-        Alisha <span class="text-white">Iftikhar</span>
-      </h1>
-    </a>
-    <nav class="hidden md:flex space-x-4 text-sm font-medium">
-      <a href="#about" class="nav-link hover:text-[#00e5ff]">About</a>
-      <a href="#services" class="nav-link hover:text-[#00e5ff]">Services</a>
-      <a href="#skills" class="nav-link hover:text-[#00e5ff]">Skills</a>
-      <a href="#projects" class="nav-link hover:text-[#00e5ff]">Projects</a>
-      <a href="#contact" class="nav-link hover:text-[#00e5ff]">Contact</a>
-    </nav>
-    <!-- Mobile menu button -->
-    <button id="mobileMenuBtn" class="md:hidden text-[#00e5ff] focus:outline-none">
-      <i class="fas fa-bars text-xl"></i>
-    </button>
-  </div>
-  <div id="mobileMenu" class="md:hidden bg-slate-800 overflow-hidden transition-all duration-300 ease-in-out">
-    <div class="flex flex-col space-y-3 px-6 py-4">
-      <a href="#about" class="nav-link hover:text-[#00e5ff] py-2">About</a>
-      <a href="#skills" class="nav-link hover:text-[#00e5ff] py-2">Skills</a>
-      <a href="#projects" class="nav-link hover:text-[#00e5ff] py-2">Projects</a>
-      <a href="#contact" class="nav-link hover:text-[#00e5ff] py-2">Contact</a>
-    </div>
-  </div>
-</header>
-
-<!-- Hero -->
-<section class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 py-24">
-  <!-- Left Content -->
-  <div class="md:w-1/2 space-y-4 animate-fadeIn">
-    <h2 class="text-3xl md:text-5xl font-extrabold leading-tight">
-      Hi, I'm 
-      <span class="bg-gradient-to-r from-[#00ff95] via-[#00e5ff] to-[#c400ff] bg-clip-text text-transparent">Alisha_Iftikhar</span><br>
-      <span class="md:text-4xl">Frontend Developer</span>
-    </h2>
-    <p class="text-slate-400">
-      I create futuristic, responsive websites with clean code, Tailwind CSS, and smooth animations. 
-      My goal is to turn ideas into visually appealing, user-friendly web experiences.
-    </p>
-    <a href="#contact" 
-       class="inline-block bg-gradient-to-r from-[#00ff95] via-[#00e5ff] to-[#c400ff] text-white px-9 py-3 rounded-lg font-semibold hover:scale-105 shadow-[0_0_20px_rgba(0,229,255,0.6)] transition">
-      Hire Me
-    </a>
-    <a href="/public/resume.pdf" 
-       class="inline-block border-2 border-[#00e5ff] text-white ml-2 px-7 py-3 rounded-lg font-semibold hover:bg-[#00e5ff]/20 hover:scale-105 shadow-lg transition" download>
-      Resume
-    </a>
-  </div>
-
-  <!-- Right Image with glow + animation -->
-  <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center relative">
-    <!-- Glowing gradient ring -->
-    <div class="absolute w-72 h-72 rounded-full bg-gradient-to-r from-[#00ff95] via-[#00e5ff] to-[#c400ff] opacity-60 blur-2xl animate-pulse"></div>
-    
-    <!-- Floating profile image -->
-    <img src="hijab.jpeg" alt="profile"
-         class="relative w-56 h-56 object-cover rounded-full border-4 border-[#00e5ff] shadow-[0_0_25px_rgba(0,229,255,0.7)] animate-float" />
-  </div>
-</section>
-
-<!-- About -->
-<section id="about" class="mx-auto bg-slate-900 px-6 py-16">
-  <h3 class="text-3xl font-bold mb-12 text-center text-white">
-    About <span class="bg-gradient-to-r from-[#00ff95] to-[#00e5ff] bg-clip-text text-transparent">Me</span>
-  </h3>
-  <div class="flex flex-col md:flex-row items-center justify-between gap-12">
-    <div class="md:w-1/2 flex justify-center">
-      <div class="w-60 h-60 clip-path-hexagon overflow-hidden relative">
-        <img src="hijab.jpeg" alt="picture" class="object-cover w-full h-full transition-all duration-500 transform hover:scale-110">
+        <button id="menu-icon" class="md:hidden text-white text-2xl">
+          <i class="fas fa-bars" onclick="toggleMenu()"></i>
+        </button>
       </div>
     </div>
-    <div class="md:w-1/2 text-slate-400 leading-relaxed font-medium">
-      <h1 class="font-bold text-xl text-white mb-4 text-center md:text-left">Frontend Developer</h1>
-      <p>
-        I'm <span class="text-white font-semibold">Alisha</span>, a dedicated Web Developer proficient in HTML, CSS, and JavaScript.
-        I specialize in the frontend ecosystem, using modern frameworks to create dynamic, accessible, and engaging interfaces.
-        My focus is on blending futuristic design with smooth, intuitive user experiences.
-      </p>
+    <div id="mobileNav"
+      class="md:hidden fixed top-0 right-0 w-full h-0 bg-[#0f172a] overflow-hidden transition-all duration-300 z-40">
+      <div class="flex justify-end p-4">
+        <button class="text-white text-2xl" onclick="toggleMenu()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="flex flex-col items-center space-y-6 p-8">
+        <a href="#home" onclick="toggleMenu()">Home</a>
+        <a href="#about" onclick="toggleMenu()">About</a>
+        <a href="#skills" onclick="toggleMenu()">Skills</a>
+        <a href="#projects" onclick="toggleMenu()">Projects</a>
+      </div>
     </div>
-  </div>
-</section>
+  </nav>
 
-<!-- Services -->
-<section id="services" class="max-w-7xl mx-auto px-6 py-16">
-  <h3 class="text-3xl text-center font-bold mb-6 text-white">My <span class="bg-gradient-to-r from-[#00ff95] to-[#c400ff] bg-clip-text text-transparent">Services</span></h3>
-  <p class="text-center pb-6 text-slate-300 max-w-xl mx-auto">What I can do to bring your ideas to life</p>
-  <div class="flex flex-wrap justify-center gap-10">
-    <!-- Card -->
-    <div class="flex-1 min-w-[280px] max-w-sm bg-slate-900 rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(0,229,255,0.6)] transition">
-      <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-xl bg-gradient-to-r from-[#00ff95] to-[#00e5ff] text-white shadow-lg">
-        <i class="fas fa-code text-2xl"></i>
-      </div>
-      <h3 class="text-xl font-bold text-[#00e5ff] mb-3">Web Development</h3>
-      <p class="text-slate-300">Responsive, SEO-friendly, and high-performance websites.</p>
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+    <!-- Background Circles -->
+    <div class="absolute top-0 left-0 w-full h-full -z-10 opacity-10">
+      <div
+        class="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#6366f1] to-[#10b981] blur-[60px] opacity-50"
+        style="top: 10%; left: 10%;"></div>
+      <div
+        class="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-br from-[#6366f1] to-[#f59e0b] blur-[60px] opacity-50"
+        style="bottom: 20%; right: 15%;"></div>
     </div>
-    <!-- Card -->
-    <div class="flex-1 min-w-[280px] max-w-sm bg-slate-900 rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(196,0,255,0.6)] transition">
-      <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-xl bg-gradient-to-r from-[#00e5ff] to-[#c400ff] text-white shadow-lg">
-        <i class="fas fa-paint-brush text-2xl"></i>
-      </div>
-      <h3 class="text-xl font-bold text-[#c400ff] mb-3">UI/UX Design</h3>
-      <p class="text-slate-300">Modern, user-friendly designs that deliver a smooth experience.</p>
-    </div>
-    <!-- Card -->
-    <div class="flex-1 min-w-[280px] max-w-sm bg-slate-900 rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(0,255,149,0.6)] transition">
-      <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-xl bg-gradient-to-r from-[#00ff95] to-[#c400ff] text-white shadow-lg">
-        <i class="fas fa-bullhorn text-2xl"></i>
-      </div>
-      <h3 class="text-xl font-bold text-[#00ff95] mb-3">Digital Marketing</h3>
-      <p class="text-slate-300">SEO strategies and campaigns to boost your online presence.</p>
-    </div>
-  </div>
-</section>
 
-<!-- Skills -->
-<section id="skills" class="mx-auto px-6 py-8 bg-slate-900">
-  <h3 class="text-3xl text-center font-bold mb-6 text-white">My <span class="bg-gradient-to-r from-[#00ff95] to-[#00e5ff] bg-clip-text text-transparent">Skills</span></h3>
-  <div class="flex justify-center">
-    <div class="bg-slate-900 rounded-lg p-6 border-2 border-[#00e5ff] md:w-2/5">
-      <h2 class="text-2xl font-bold text-gray-100 flex items-center mb-4"><i class="fas fa-code mr-3"></i>Coding Skills</h2>
-      <div class="space-y-5">
-        <div>
-          <div class="flex justify-between text-sm mb-2"><span>HTML5</span><span>95%</span></div>
-          <div class="w-full h-5 border-2 border-[#00e5ff] rounded-sm overflow-hidden">
-            <div class="h-full w-[95%] bg-gradient-to-r from-[#00ff95] to-[#00e5ff] animate-fadeOut"></div>
+    <div class="max-w-[1200px] mx-auto px-5 w-full">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <!-- Left Content -->
+        <div class="animate-fadeIn">
+          <h1 class="text-[56px] md:text-[56px] font-black font-poppins leading-tight mb-5">
+            Hi, I'm <span class="gradient-text">Alisha Iftikhar</span>
+          </h1>
+          <h2 class="text-2xl font-semibold font-poppins mb-8">Frontend Developer</h2>
+          <p class="text-lg text-[#cbd5e1] mb-8 max-w-[500px]">
+            I create futuristic, responsive websites with clean code, Tailwind CSS, and smooth animations.
+            My goal is to turn ideas into visually appealing, user-friendly web experiences.
+          </p>
+
+          <!-- Buttons -->
+          <div class="flex flex-wrap gap-4 mb-12">
+            <a href="https://www.linkedin.com/in/alisha-iftikhar-3b6680357?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+              class="inline-flex items-center justify-center px-8 py-3 rounded-[50px] font-semibold text-white bg-gradient-to-r from-[#6366f1] to-[#10b981] shadow-[0_10px_25px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] hover:-translate-y-1 transition-all duration-300">
+              <i class="fas fa-paper-plane mr-2"></i> Hire Me
+            </a>
+            <a href="#projects"
+              class="inline-flex items-center justify-center px-8 py-3 rounded-[50px] font-semibold text-white border-2 border-[#6366f1] hover:bg-[#6366f1]/10 hover:-translate-y-1 transition-all duration-300">
+              <i class="fas fa-eye mr-2"></i> View Projects
+            </a>
+          </div>
+
+          <!-- Stats -->
+          <div class="flex gap-10 mt-10">
+            <div>
+              <h3 class="text-[36px] font-black mb-2 gradient-text-animated">50+</h3>
+              <p class="text-[#64748b]">Projects</p>
+            </div>
+            <div>
+              <h3 class="text-[36px] font-black mb-2 gradient-text-animated">100%</h3>
+              <p class="text-[#64748b]">Client Satisfaction</p>
+            </div>
+            <div>
+              <h3 class="text-[36px] font-black mb-2 gradient-text-animated">6+</h3>
+              <p class="text-[#64748b]">Months Experience</p>
+            </div>
           </div>
         </div>
-        <div>
-          <div class="flex justify-between text-sm mb-2"><span>CSS3 & Tailwind</span><span>90%</span></div>
-          <div class="w-full h-5 border-2 border-[#00e5ff] rounded-sm overflow-hidden">
-            <div class="h-full w-[90%] bg-gradient-to-r from-[#00ff95] to-[#c400ff] animate-fadeOut2"></div>
+
+        <!-- Right Image -->
+        <div class="relative">
+          <div class="w-full max-w-[400px] rounded-[20px] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] mx-auto">
+            <img src="/hijab.jpeg" alt="Alisha Iftikhar" class="w-full h-auto">
           </div>
-        </div>
-        <div>
-          <div class="flex justify-between text-sm mb-2"><span>JavaScript</span><span>85%</span></div>
-          <div class="w-full h-5 border-2 border-[#00e5ff] rounded-sm overflow-hidden">
-            <div class="h-full w-[85%] bg-gradient-to-r from-[#00e5ff] to-[#c400ff] animate-fadeOut3"></div>
+          <!-- Floating Elements -->
+          <div
+            class="absolute w-[60px] h-[60px] rounded-full flex items-center justify-center bg-gradient-to-r from-[#6366f1] to-[#10b981] text-white shadow-[0_10px_25px_rgba(0,0,0,0.1)] animate-float"
+            style="top: -20px; right: 20px;">
+            <i class="fab fa-vuejs text-xl"></i>
+          </div>
+          <div
+            class="absolute w-[60px] h-[60px] rounded-full flex items-center justify-center bg-gradient-to-r from-[#6366f1] to-[#10b981] text-white shadow-[0_10px_25px_rgba(0,0,0,0.1)] animate-float"
+            style="bottom: 40px; left: -20px; animation-delay: 0.5s;">
+            <i class="fab fa-js text-xl"></i>
+          </div>
+          <div
+            class="absolute w-[60px] h-[60px] rounded-full flex items-center justify-center bg-gradient-to-r from-[#6366f1] to-[#10b981] text-white shadow-[0_10px_25px_rgba(0,0,0,0.1)] animate-float"
+            style="bottom: -20px; right: 60px; animation-delay: 1s;">
+            <i class="fab fa-html5 text-xl"></i>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Projects -->
-<section id="projects" class="max-w-7xl mx-auto px-6 py-16">
-  <h3 class="text-3xl text-center font-bold mb-8 text-white">My <span class="bg-gradient-to-r from-[#00ff95] to-[#c400ff] bg-clip-text text-transparent">Projects</span></h3>
-  <div class="flex flex-wrap justify-center gap-8">
-    <div class="w-full sm:w-[300px] rounded-xl overflow-hidden shadow-lg hover:shadow-[0_0_25px_rgba(0,229,255,0.6)] transition">
-      <div class="w-full h-auto bg-gradient-to-br from-[#00ff95] to-[#00e5ff]">
-        <img src="e.jpg" alt="pic">
+  <!-- About Section -->
+  <section id="about" class="py-[100px]">
+    <div class="max-w-[1200px] mx-auto px-5">
+      <div class="text-center mb-16">
+        <h2 class="text-[42px] font-black font-poppins mb-4">About <span class="gradient-text">Me</span></h2>
+        <p class="text-[#64748b] max-w-[600px] mx-auto">Get to know the person behind the code</p>
       </div>
-      <div class="p-5">
-        <h3 class="text-xl font-semibold text-[#00e5ff] mb-2">E-Commerce Website</h3>
-        <p class="text-slate-300">A fully responsive e-commerce platform with futuristic design and seamless UX.</p>
+
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <!-- Hexagon Image -->
+        <div class="animate-fadeIn">
+          <div class="hexagon w-[350px] h-[400px] mx-auto relative">
+            <div class="absolute top-[10px] left-[10px] w-[calc(100%-20px)] h-[calc(100%-20px)]">
+              <img src="/hijab.jpeg" alt="Alisha Iftikhar" class="w-full h-full object-cover">
+            </div>
+          </div>
+        </div>
+
+        <!-- About Text -->
+        <div class="animate-fadeIn" style="animation-delay: 0.2s;">
+          <h3 class="text-[32px] font-bold font-poppins mb-5">Frontend Developer</h3>
+          <p class="text-[#cbd5e1] mb-5">
+            I'm <strong class="text-white">Alisha</strong>, a dedicated Web Developer proficient in HTML, CSS, and
+            JavaScript.
+            I specialize in the frontend ecosystem, using modern frameworks to create dynamic, accessible, and engaging
+            interfaces.
+          </p>
+          <p class="text-[#cbd5e1] mb-5">
+            My focus is on blending futuristic design with smooth, intuitive user experiences.
+            I believe that great design and functionality should work together seamlessly to create products
+            that not only look beautiful but also solve real problems.
+          </p>
+          <p class="text-[#cbd5e1] mb-8">
+            With a passion for clean code and responsive design, I strive to create websites that are
+            not only visually stunning but also perform exceptionally well across all devices.
+          </p>
+
+          <!-- Download Resume Button -->
+          <div class="mt-8">
+            <a href="/resume.pdf"
+              class="inline-flex items-center justify-center px-8 py-3 rounded-[50px] font-semibold text-white bg-gradient-to-r from-[#6366f1] to-[#10b981] shadow-[0_10px_25px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] hover:-translate-y-1 transition-all duration-300">
+              <i class="fas fa-download mr-2"></i> Download Resume
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="w-full sm:w-[300px] rounded-xl overflow-hidden shadow-lg hover:shadow-[0_0_25px_rgba(196,0,255,0.6)] transition">
-      <div class="w-full h-auto bg-gradient-to-br from-[#00e5ff] to-[#c400ff]">
-        <img src="t.jpg" alt="pic">
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-[100px] bg-[#1e293b]">
+    <div class="max-w-[1200px] mx-auto px-5">
+      <div class="text-center mb-16">
+        <h2 class="text-[42px] font-black font-poppins mb-4">My <span class="gradient-text">Skills</span></h2>
+        <p class="text-[#64748b] max-w-[600px] mx-auto">Technologies and tools I work with</p>
       </div>
-      <div class="p-5">
-        <h3 class="text-xl font-semibold text-[#c400ff] mb-2">Travel App</h3>
-        <p class="text-slate-300">Discover and book unique experiences around the world.</p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Skill Card 1 -->
+        <div
+          class="skill-card bg-[#0f172a] p-8 rounded-[16px] border border-white/5 hover:border-[#6366f1] hover:-translate-y-[10px] transition-all duration-300 animate-fadeIn">
+          <div
+            class="w-[60px] h-[60px] rounded-[12px] flex items-center justify-center bg-gradient-to-r from-[#6366f1] to-[#10b981] mb-5">
+            <i class="fab fa-html5 text-2xl text-white"></i>
+          </div>
+          <h4 class="text-xl font-bold font-poppins mb-3">HTML5 & CSS3</h4>
+          <p class="text-[#64748b] mb-5">Building semantic, accessible, and responsive web pages with modern CSS
+            techniques.</p>
+          <div class="flex justify-between mb-2">
+            <span>Expert</span>
+            <span class="font-bold text-[#6366f1]">95%</span>
+          </div>
+          <div class="h-2 bg-white/10 rounded overflow-hidden">
+            <div class="h-full skill-progress bg-gradient-to-r from-[#6366f1] to-[#10b981]" style="width: 95%"></div>
+          </div>
+        </div>
+
+        <!-- Skill Card 2 -->
+        <div
+          class="skill-card bg-[#0f172a] p-8 rounded-[16px] border border-white/5 hover:border-[#6366f1] hover:-translate-y-[10px] transition-all duration-300 animate-fadeIn"
+          style="animation-delay: 0.1s;">
+          <div
+            class="w-[60px] h-[60px] rounded-[12px] flex items-center justify-center bg-gradient-to-r from-[#6366f1] to-[#10b981] mb-5">
+            <i class="fab fa-js text-2xl text-white"></i>
+          </div>
+          <h4 class="text-xl font-bold font-poppins mb-3">JavaScript & ES6+</h4>
+          <p class="text-[#64748b] mb-5">Creating interactive and dynamic web applications with modern JavaScript
+            features.</p>
+          <div class="flex justify-between mb-2">
+            <span>Advanced</span>
+            <span class="font-bold text-[#6366f1]">90%</span>
+          </div>
+          <div class="h-2 bg-white/10 rounded overflow-hidden">
+            <div class="h-full skill-progress bg-gradient-to-r from-[#6366f1] to-[#10b981]" style="width: 90%"></div>
+          </div>
+        </div>
+
+        <!-- Skill Card 3 -->
+        <div
+          class="skill-card bg-[#0f172a] p-8 rounded-[16px] border border-white/5 hover:border-[#6366f1] hover:-translate-y-[10px] transition-all duration-300 animate-fadeIn"
+          style="animation-delay: 0.2s;">
+          <div
+            class="w-[60px] h-[60px] rounded-[12px] flex items-center justify-center bg-gradient-to-r from-[#6366f1] to-[#10b981] mb-5">
+            <i class="fab fa-vuejs text-2xl text-white"></i>
+          </div>
+          <h4 class="text-xl font-bold font-poppins mb-3">Vue.js</h4>
+          <p class="text-[#64748b] mb-5">Building scalable and maintainable frontend applications with Vue.js ecosystem.
+          </p>
+          <div class="flex justify-between mb-2">
+            <span>Advanced</span>
+            <span class="font-bold text-[#6366f1]">85%</span>
+          </div>
+          <div class="h-2 bg-white/10 rounded overflow-hidden">
+            <div class="h-full skill-progress bg-gradient-to-r from-[#6366f1] to-[#10b981]" style="width: 85%"></div>
+          </div>
+        </div>
+
+        <!-- Skill Card 4 -->
+        <div
+          class="skill-card bg-[#0f172a] p-8 rounded-[16px] border border-white/5 hover:border-[#6366f1] hover:-translate-y-[10px] transition-all duration-300 animate-fadeIn"
+          style="animation-delay: 0.3s;">
+          <div
+            class="w-[60px] h-[60px] rounded-[12px] flex items-center justify-center bg-gradient-to-r from-[#6366f1] to-[#10b981] mb-5">
+            <i class="fas fa-paint-brush text-2xl text-white"></i>
+          </div>
+          <h4 class="text-xl font-bold font-poppins mb-3">UI/UX Design</h4>
+          <p class="text-[#64748b] mb-5">Creating user-friendly interfaces with modern design principles and tools.</p>
+          <div class="flex justify-between mb-2">
+            <span>Advanced</span>
+            <span class="font-bold text-[#6366f1]">88%</span>
+          </div>
+          <div class="h-2 bg-white/10 rounded overflow-hidden">
+            <div class="h-full skill-progress bg-gradient-to-r from-[#6366f1] to-[#10b981]" style="width: 88%"></div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="w-full sm:w-[300px] rounded-xl overflow-hidden shadow-lg hover:shadow-[0_0_25px_rgba(0,255,149,0.6)] transition">
-      <div class="w-full h-auto bg-gradient-to-br from-[#00ff95] to-[#c400ff]">
-        <img src="f.jpeg" alt="pic">
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-[100px]">
+    <div class="max-w-[1200px] mx-auto px-5">
+      <div class="text-center mb-16">
+        <h2 class="text-[42px] font-black font-poppins mb-4">My <span class="gradient-text">Projects</span></h2>
+        <p class="text-[#64748b] max-w-[600px] mx-auto">Some of my recent work that showcases my skills</p>
       </div>
-      <div class="p-5">
-        <h3 class="text-xl font-semibold text-[#00ff95] mb-2">Fitness Tracker</h3>
-        <p class="text-slate-300">A comprehensive fitness tracking application with personalized workout plans.</p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Project 1 -->
+        <div
+          class="bg-[#1e293b] rounded-[16px] overflow-hidden border border-white/5 hover:border-[#6366f1] hover:-translate-y-[10px] transition-all duration-300 animate-fadeIn">
+          <div class="h-[200px] overflow-hidden">
+            <a href="">
+              <img src="/bakery.avif" alt="E-commerce Website"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+
+            </a>
+          </div>
+          <div class="p-6">
+            <h4 class="text-xl font-bold font-poppins mb-3">E-Commerce Website</h4>
+            <p class="text-[#64748b] mb-5">A fully responsive e-commerce platform with futuristic design and seamless UX
+              design.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-[#6366f1]/10 text-[#6366f1] px-3 py-1 rounded-full text-sm font-medium">Html</span>
+              <span class="bg-[#6366f1]/10 text-[#6366f1] px-3 py-1 rounded-full text-sm font-medium">Tailwind
+                CSS</span>
+              <span class="bg-[#6366f1]/10 text-[#6366f1] px-3 py-1 rounded-full text-sm font-medium">JavaScript</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div
+          class="bg-[#1e293b] rounded-[16px] overflow-hidden border border-white/5 hover:border-[#6366f1] hover:-translate-y-[10px] transition-all duration-300 animate-fadeIn"
+          style="animation-delay: 0.1s;">
+          <div class="h-[200px] overflow-hidden">
+            <img src="/travel.avif" alt="Travel App"
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+          </div>
+          <div class="p-6">
+            <h4 class="text-xl font-bold font-poppins mb-3">Travel Booking App</h4>
+            <p class="text-[#64748b] mb-5">Interactive travel platform for booking flights, hotels, and experiences
+              worldwide.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-[#6366f1]/10 text-[#6366f1] px-3 py-1 rounded-full text-sm font-medium">Nuxt.js</span>
+              <span class="bg-[#6366f1]/10 text-[#6366f1] px-3 py-1 rounded-full text-sm font-medium">Vue.js</span>
+              <span class="bg-[#6366f1]/10 text-[#6366f1] px-3 py-1 rounded-full text-sm font-medium">Tailwind</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div
+          class="bg-[#1e293b] rounded-[16px] overflow-hidden border border-white/5 hover:border-[#6366f1] hover:-translate-y-[10px] transition-all duration-300 animate-fadeIn"
+          style="animation-delay: 0.2s;">
+          <div class="h-[200px] overflow-hidden">
+            <img src="/resturant.avif" alt="Fitness Tracker"
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+          </div>
+          <div class="p-6">
+            <h4 class="text-xl font-bold font-poppins mb-3">Restaurant App</h4>
+            <p class="text-[#64748b] mb-5">A comprehensive restaurant management application with personalized dining
+              experiences.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-[#6366f1]/10 text-[#6366f1] px-3 py-1 rounded-full text-sm font-medium">Vue.js</span>
+              <span class="bg-[#6366f1]/10 text-[#6366f1] px-3 py-1 rounded-full text-sm font-medium">Firebase</span>
+              <span class="bg-[#6366f1]/10 text-[#6366f1] px-3 py-1 rounded-full text-sm font-medium">Chart.js</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Footer -->
-<footer id="contact" class="bg-slate-950 py-6 mt-10 text-center text-slate-400 text-sm">
-  © 2025 Alisha Iftikhar — Built with Tailwind CSS & JS
-    <div id="contact" class=" bottom-5 right-6">
-  <a href="#" >
-    <span class="font-semibold text-lg">Linkedin</span>
-    <span class="font-semibold text-lg">|  GitHub</span>
+  <!-- Footer -->
+  <footer class="py-12 md:py-[60px] bg-[#0f172a] border-t border-white/5">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Main Footer Content -->
+      <div class="flex flex-col lg:flex-row lg:justify-between gap-10 lg:gap-20 mb-10">
+        <!-- Brand/About Section -->
+        <div class="lg:max-w-[400px] xl:max-w-[500px]">
+          <a href="index.html" class="inline-block font-extrabold text-2xl sm:text-3xl font-poppins text-white mb-4">
+            Alisha <span class="gradient-text">Iftikhar</span>
+          </a>
+          <p class="text-[#64748b] max-w-[400px] mt-4 text-sm sm:text-base leading-relaxed">
+            Frontend Developer creating exceptional digital experiences with modern web technologies.
+          </p>
+        </div>
 
+        <!-- Links Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
+          <!-- Quick Links -->
+          <div>
+            <h4 class="text-base sm:text-lg font-bold font-poppins mb-4 text-white">Quick Links</h4>
+            <div class="space-y-3">
+              <a href="#home"
+                class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 block text-sm sm:text-base hover:translate-x-1 hover:pl-2">Home</a>
+              <a href="#about"
+                class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 block text-sm sm:text-base hover:translate-x-1 hover:pl-2">About</a>
+              <a href="#skills"
+                class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 block text-sm sm:text-base hover:translate-x-1 hover:pl-2">Skills</a>
+              <a href="#projects"
+                class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 block text-sm sm:text-base hover:translate-x-1 hover:pl-2">Projects</a>
+            </div>
+          </div>
+
+          <!-- Services -->
+          <div>
+            <h4 class="text-base sm:text-lg font-bold font-poppins mb-4 text-white">Services</h4>
+            <div class="space-y-3">
+              <a href="#projects"
+                class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 block text-sm sm:text-base hover:translate-x-1 hover:pl-2">Responsive
+                Websites</a>
+              <a href="#projects"
+                class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 block text-sm sm:text-base hover:translate-x-1 hover:pl-2">UI/UX
+                Design</a>
+              <a href="#projects"
+                class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 block text-sm sm:text-base hover:translate-x-1 hover:pl-2">Web
+                Applications</a>
+              <a href="#projects"
+                class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 block text-sm sm:text-base hover:translate-x-1 hover:pl-2">E-commerce
+                Solutions</a>
+            </div>
+          </div>
+
+          <!-- Connect -->
+          <div>
+            <h4 class="text-base sm:text-lg font-bold font-poppins mb-4 text-white">Connect</h4>
+            <div class="space-y-3">
+              <a href="https://www.linkedin.com/in/alisha-iftikhar-3b6680357?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 block text-sm sm:text-base hover:translate-x-1 hover:pl-2 flex items-center gap-2">
+                <i class="fab fa-linkedin text-base"></i> LinkedIn
+              </a>
+              <a href="https://github.com/Alisha-Iftikhar/crustWitch.git"
+                class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 block text-sm sm:text-base hover:translate-x-1 hover:pl-2 flex items-center gap-2">
+                <i class="fab fa-github text-base"></i> GitHub
+              </a>
+              <a href="https://www.upwork.com/freelancers/~01a6bfe0a380f4ce24" target="_blank"
+                class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 block text-sm sm:text-base hover:translate-x-1 hover:pl-2 flex items-center gap-2">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M18.561 13.158c-1.102 0-2.135.467-3.074 1.227l.228-1.076.001-.008c.206-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.406 0-2.544-1.14-2.544-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z" />
+                </svg> Upwork
+              </a>
+              <a href="http://www.fiverr.com/s/XL92LrP" target="_blank"
+                class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 block text-sm sm:text-base hover:translate-x-1 hover:pl-2 flex items-center gap-2">
+                <i class="fas fa-code text-base"></i> Fiverr
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright Section -->
+      <div class="text-center pt-8 border-t border-white/5">
+        <p class="text-[#94a3b8] text-sm sm:text-base">
+          © <span id="currentYear">2024</span> Alisha Iftikhar. All rights reserved.
+          <span class="block sm:inline mt-1 sm:mt-0">Built with HTML, CSS & JavaScript.</span>
+        </p>
+
+        <!-- Social Media Icons (Optional - Mobile Friendly) -->
+        <div class="flex justify-center gap-6 mt-6">
+          <a href="https://www.linkedin.com/in/alisha-iftikhar-3b6680357?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 text-xl">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/Alisha-Iftikhar/crustWitch.git" class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 text-xl">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.upwork.com/freelancers/~01a6bfe0a380f4ce24" target="_blank"
+            class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 text-xl">
+           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.561 13.158c-1.102 0-2.135.467-3.074 1.227l.228-1.076.001-.008c.206-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.406 0-2.544-1.14-2.544-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/>
+    </svg>
+          </a>
+          <a href="http://www.fiverr.com/s/XL92LrP" target="_blank"
+            class="text-[#94a3b8] hover:text-[#6366f1] transition-colors duration-300 text-xl">
+            <i class="fas fa-code"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <a href="#home"
+    class="back-to-top fixed bottom-8 right-8 w-[50px] h-[50px] rounded-full flex items-center justify-center bg-gradient-to-r from-[#6366f1] to-[#10b981] text-white shadow-lg z-50"
+    id="backToTop">
+    <i class="fas fa-arrow-up"></i>
   </a>
-</div>
-</footer>
 
-<script>
-  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  mobileMenuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-  });
-</script>
+  <script>
+    // Mobile Menu Toggle
+    function toggleMenu() {
+      const mobileNav = document.getElementById('mobileNav');
+      const menuIcon = document.querySelector('#menu-icon i');
+
+      if (mobileNav.style.height === '100vh') {
+        // Close menu
+        mobileNav.style.height = '0';
+        menuIcon.className = 'fas fa-bars';
+      } else {
+        // Open menu
+        mobileNav.style.height = '100vh';
+        menuIcon.className = 'fas fa-times';
+      }
+    }
+
+    // Close mobile menu when clicking links
+    document.querySelectorAll('#mobileNav a').forEach(link => {
+      link.addEventListener('click', toggleMenu);
+    });
+
+    // Back to Top Button
+    const backToTop = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    // Smooth scroll for back to top
+    backToTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Animate skill bars on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      // Select all skill cards
+      const skillCards = document.querySelectorAll('.skill-card');
+      
+      // Create observer
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            const skillBars = entry.target.querySelectorAll('.skill-progress');
+            
+            skillBars.forEach(function(bar, index) {
+              // Get the width from style attribute
+              const width = bar.style.width;
+              
+              // Reset to 0
+              bar.style.width = '0';
+              
+              // Animate with delay for each bar
+              setTimeout(function() {
+                bar.style.width = width;
+              }, 300 + (index * 100));
+            });
+          }
+        });
+      }, { 
+        threshold: 0.5,
+        rootMargin: '0px 0px -50px 0px'
+      });
+      
+      // Observe each skill card
+      skillCards.forEach(function(card) {
+        observer.observe(card);
+      });
+
+      // Update copyright year
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
